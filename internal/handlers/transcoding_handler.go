@@ -33,7 +33,7 @@ func (g *RandomJobIDGenerator) Generate() string {
 
 // TranscodingHandler handles the transcoding API requests
 type TranscodingHandler struct {
-	Transcoder     *transcoding.Transcoder
+	Transcoder     *transcoder.Transcoder
 	Jobs           map[string]*models.Job
 	JobIDGenerator JobIDGenerator
 }
@@ -106,7 +106,7 @@ func (h *TranscodingHandler) startTranscoding(job *models.Job) {
 }
 
 // NewTranscodingHandler creates a new TranscodingHandler instance
-func NewTranscodingHandler(transcoder *transcoding.Transcoder, jobIDGenerator JobIDGenerator) *TranscodingHandler {
+func NewTranscodingHandler(transcoder *transcoder.Transcoder, jobIDGenerator JobIDGenerator) *TranscodingHandler {
 	return &TranscodingHandler{
 		Transcoder:     transcoder,
 		Jobs:           make(map[string]*models.Job),

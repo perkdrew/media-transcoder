@@ -20,7 +20,7 @@ func (m mockJobIDGenerator) Generate() string {
 }
 
 func TestCreateTranscodeJob(t *testing.T) {
-	transcoder := transcoding.NewTranscoder("ffmpeg", models.RealCmdExecutor{})
+	transcoder := transcoder.NewTranscoder("ffmpeg", models.RealCmdExecutor{})
 	handler := handlers.NewTranscodingHandler(transcoder, mockJobIDGenerator{})
 
 	requestBody := strings.NewReader(`{"InputFile":"input.mp4","OutputFile":"output.mp4","Parameters":{"videoCodec":"libx264","audioCodec":"aac"}}`)
