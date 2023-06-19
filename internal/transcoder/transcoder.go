@@ -1,4 +1,4 @@
-package transcoding
+package transcoder
 
 import (
 	"fmt"

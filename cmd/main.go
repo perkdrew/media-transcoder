@@ -6,7 +6,6 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"github.com/perkdrew/media-transcoder/internal/transcoding"
 	"github.com/perkdrew/media-transcoder/internal/handlers"
 	"github.com/perkdrew/media-transcoder/internal/models"
 )
@@ -17,10 +16,17 @@ func main() {
 	cmdExecutor := models.RealCmdExecutor{}
 
 	// Create a new instance of the Transcoder
-	transcoder := transcoding.NewTranscoder("/path/to/ffmpeg", cmdExecutor) 
+	transcoder := models.Transcoder{
+		FFMpegPath: "/path/to/ffmpeg",
+		Executor:   cmdExecutor,
+	}
+
+
+	// Create a new instance of the RandomJobIDGenerator
+	jobIDGenerator := &handlers.RandomJobIDGenerator{}
 
 	// Create a new instance of the TranscodingHandler
-	transcodingHandler := handlers.NewTranscodingHandler(transcoder, nil) 
+	transcodingHandler := handlers.NewTranscodingHandler(transcoder, jobIDGenerator)
 
 	// Create a new router
 	router := mux.NewRouter()
@@ -33,3 +39,4 @@ func main() {
 	log.Println("Media Transcoder API server is running on http://localhost:8000")
 	log.Fatal(http.ListenAndServe(":8000", router))
 }
+

@@ -9,7 +9,7 @@ import (
 
 	"github.com/perkdrew/media-transcoder/internal/handlers"
 	"github.com/perkdrew/media-transcoder/internal/models"
-	"github.com/perkdrew/media-transcoder/internal/transcoding"
+	"github.com/perkdrew/media-transcoder/internal/transcoder"
 	"github.com/stretchr/testify/assert"
 )
 
