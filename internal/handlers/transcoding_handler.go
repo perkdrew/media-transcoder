@@ -4,15 +4,31 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"math/rand"
+	"time"
 
 	"github.com/gorilla/mux"
 
 	"github.com/perkdrew/media-transcoder/internal/models"
-	"github.com/perkdrew/media-transcoder/internal/transcoding"
+	"github.com/perkdrew/media-transcoder/internal/transcoder"
 )
 
 type JobIDGenerator interface {
 	Generate() string
+}
+
+// RandomJobIDGenerator generates a random job ID
+type RandomJobIDGenerator struct{}
+
+// Generate generates a random job ID
+func (g *RandomJobIDGenerator) Generate() string {
+	rand.Seed(time.Now().UnixNano())
+	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	b := make([]byte, 8)
+	for i := range b {
+		b[i] = charset[rand.Intn(len(charset))]
+	}
+	return string(b)
 }
 
 // TranscodingHandler handles the transcoding API requests
